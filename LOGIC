@@ -6,17 +6,69 @@ project_root/
 ├── config/                     # Configuration files
 │   └── database.js            # PostgreSQL configuration
 ├── public/                    # Static files
-│   ├── css/
-│   │   └── styles.css        # Main stylesheet
-│   ├── sets.html             # Sets management page
-│   └── js/
-│       └── scripts.js        # Frontend JavaScript
+│   ├── components/            # Reusable UI components
+│   │   └── navbar.html       # Navigation bar component
+│   ├── css/                  # Stylesheets
+│   │   ├── common.css        # Shared styles
+│   │   ├── navbar.css        # Navigation styles
+│   │   ├── homePage.css      # Homepage specific styles
+│   │   └── sets.css          # Sets page specific styles
+│   ├── js/
+│   │   └── scripts.js        # Frontend JavaScript
+│   ├── index.html            # Homepage
+│   └── sets.html             # Sets management page
 ├── src/                      # Source code
 │   ├── controllers/          # Business logic
 │   │   └── setsController.js # Sets CRUD operations
 │   ├── routes/               # API routes
 │   │   └── sets.js          # Sets endpoints
 │   └── server.js            # Main application file
+└── tests/                    # Test files
+    └── sets.test.js         # Sets tests
+```
+
+## CSS Organization
+
+### 1. Common Styles (common.css)
+- Base reset
+- Typography
+- Layout utilities
+- Button base styles
+- Color variables
+- Shared components
+
+### 2. Navigation Styles (navbar.css)
+- Navbar layout
+- Brand styling
+- Navigation links
+- Active states
+- Responsive behavior
+
+### 3. Homepage Styles (homePage.css)
+- Component grid
+- Cards layout
+- Icons and images
+- Animations
+- Page-specific elements
+
+### 4. Sets Page Styles (sets.css)
+- Form styling
+- Set cards
+- Delete buttons
+- Confirmation dialogs
+- Notifications
+
+## Database Schema
+```sql
+CREATE TABLE sets (
+    id SERIAL PRIMARY KEY,
+    set_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    items JSONB NOT NULL,
+    length INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
 ## API Endpoints
@@ -68,56 +120,39 @@ project_root/
 
 ## Frontend Logic
 
-### Event Handlers
-1. **Page Load**
-   - Initialize event listeners
-   - Fetch and display existing sets
+### Components
+1. **Navigation Bar**
+   - Shared across pages
+   - Active state handling
+   - Dynamic loading
+   - Responsive design
 
-2. **Form Submission**
-   - Prevent default form action
-   - Validate inputs
-   - Convert comma-separated items to array
-   - Send POST request
-   - Show success/error notification
-   - Reset form on success
-   - Refresh sets display
+2. **Create Set Form**
+   - Input validation
+   - Dynamic feedback
+   - Loading states
+   - Success/Error handling
 
-3. **Fetch Sets**
-   - Show loading state
-   - Fetch sets from API
-   - Display sets in grid layout
-   - Show error if fetch fails
-   - Reset button state
+3. **Sets Display**
+   - Grid layout
+   - Delete functionality
+   - Confirmation dialogs
+   - Loading states
 
-### UI Components
-1. **Create Set Form**
-   - Set name input (required)
-   - Description textarea
-   - Items input (required, comma-separated)
-   - Submit button with loading state
-
-2. **Sets Display**
-   - Grid layout for sets
-   - Each set card shows:
-     - Name with icon
-     - Description
-     - Items list
-     - Metadata (ID, timestamps)
-   - Fetch button with loading state
-
-3. **Notifications**
+4. **Notifications**
    - Success/Error messages
-   - Auto-dismiss after 3 seconds
-   - Slide-in animation
-   - Icon indicators
+   - Auto-dismiss
+   - Animations
+   - Position fixed
 
 ## Styling
 - Minimal, clean design
-- Responsive grid layout
+- Responsive layouts
 - Font Awesome icons
 - Color scheme:
   - Primary: #3498db (Blue)
   - Secondary: #2ecc71 (Green)
+  - Danger: #ef4444 (Red)
   - Text: #2c3e50 (Dark)
   - Background: #f8f9fa (Light)
 - Interactive elements:

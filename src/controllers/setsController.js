@@ -105,7 +105,7 @@ const updateSet = async (req, res) => {
 
         const query = `
             UPDATE sets 
-            SET set_name = $1, description = $2, items = $3, length = $4, updated_at = CURRENT_TIMESTAMP
+            SET set_name = $1, description = $2, items = $3, length = $4
             WHERE id = $5
             RETURNING *
         `;
