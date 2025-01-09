@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constraints Management | Optimization Application</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/constraints.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation will be loaded here -->
+    <div id="nav-placeholder"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-balance-scale"></i> Constraints Management</h1>
+        </header>
+        
+        <!-- Create Constraint Form -->
+        <div class="form-container">
+            <h2><i class="fas fa-plus-circle"></i> Create New Constraint</h2>
+            <form id="createConstraintForm">
+                <div class="form-group">
+                    <label for="constraint_name"><i class="fas fa-tag"></i> Constraint Name:</label>
+                    <input type="text" id="constraint_name" name="name" placeholder="Enter constraint name" required>
+                </div>
+                <div class="form-group">
+                    <label for="operator"><i class="fas fa-code"></i> Sign:</label>
+                    <select id="operator" name="sign" required>
+                        <option value="">Select operator</option>
+                        <option value="le">Less than or equal to (≤)</option>
+                        <option value="eq">Equal to (=)</option>
+                        <option value="ge">Greater than or equal to (≥)</option>
+                        <option value="lt">Less than (<)</option>
+                        <option value="gt">Greater than (>)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rhs_value"><i class="fas fa-equals"></i> RHS Value:</label>
+                    <input type="number" id="rhs_value" name="rhs" placeholder="Enter right-hand side value" required>
+                </div>
+                <div class="form-group">
+                    <label for="parameters_needed"><i class="fas fa-cube"></i> Parameters Needed:</label>
+                    <input type="text" id="parameters_needed" name="parameters_needed" placeholder="Enter parameter IDs (comma-separated)" required>
+                    <small class="help-text">Example: 1, 2, 3</small>
+                </div>
+                <div class="form-group">
+                    <label for="decision_needed"><i class="fas fa-cube"></i> Decision Variables Needed:</label>
+                    <input type="text" id="decision_needed" name="decision_needed" placeholder="Enter decision variable IDs (comma-separated)" required>
+                    <small class="help-text">Example: 1, 2, 3</small>
+                </div>
+                <div class="form-group">
+                    <label for="format"><i class="fas fa-code"></i> Format:</label>
+                    <input type="text" id="format" name="format" placeholder="Enter constraint format" required>
+                    <small class="help-text">Example: sum(j in J) X[i,j] <= Capacity[i]</small>
+                </div>
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left"></i> Description:</label>
+                    <textarea id="description" name="description" placeholder="Enter constraint description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Create Constraint
+                </button>
+            </form>
+        </div>
+
+        <!-- Constraints List -->
+        <div class="constraints-section">
+            <div class="section-header">
+                <h2><i class="fas fa-database"></i> Existing Constraints</h2>
+                <button id="fetchConstraints" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Fetch Constraints
+                </button>
+            </div>
+            <div id="constraintsContainer" class="constraints-container"></div>
+        </div>
+    </div>
+
+    <script src="/js/constraints.js"></script>
+    <script>
+        // Load navigation
+        fetch('/components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+    </script>
+</body>
+</html> 

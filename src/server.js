@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const setsRoutes = require('./routes/sets');
 const parametersRoutes = require('./routes/parameters');
-
+const constraintRoutes = require('./routes/constraints');
 // Load environment variables
 dotenv.config();
 
@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 // API Routes
 app.use('/api/sets', setsRoutes);
 app.use('/api/parameters', parametersRoutes);
-
+app.use('/api/constraints', constraintRoutes);
 // Serve frontend
 app.get('/parameters', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/parameters.html'));
@@ -30,6 +30,9 @@ app.get('/sets', (req, res) => {
 });
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+app.get('/constraints', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/constraints.html'));
 });
 // Error handling middleware
 app.use((err, req, res, next) => {
