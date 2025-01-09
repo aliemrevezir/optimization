@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 const setsRoutes = require('./routes/sets');
+const parametersRoutes = require('./routes/parameters');
 
 // Load environment variables
 dotenv.config();
@@ -18,8 +19,12 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // API Routes
 app.use('/api/sets', setsRoutes);
+app.use('/api/parameters', parametersRoutes);
 
 // Serve frontend
+app.get('/parameters', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/parameters.html'));
+});
 app.get('/sets', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/sets.html'));
 });
