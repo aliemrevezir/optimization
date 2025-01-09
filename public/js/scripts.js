@@ -3,6 +3,69 @@ document.addEventListener('DOMContentLoaded', () => {
     const setsContainer = document.getElementById('setsContainer');
     const createSetForm = document.getElementById('createSetForm');
 
+    // Function to delete a set
+    async function deleteSet(id, setName) {
+        try {
+            const confirmed = await showConfirmDialog(
+                'Delete Set',
+                `Are you sure you want to delete "${setName}"? This action cannot be undone.`
+            );
+
+            if (!confirmed) return;
+
+            const response = await fetch(`http://localhost:3000/api/sets/${id}`, {
+                method: 'DELETE'
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                showNotification('Set deleted successfully!', 'success');
+                await fetchAndDisplaySets();
+            } else {
+                throw new Error(result.error || 'Failed to delete set');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification(`Error deleting set: ${error.message}`, 'error');
+        }
+    }
+
+    // Function to show confirmation dialog
+    function showConfirmDialog(title, message) {
+        return new Promise((resolve) => {
+            const dialog = document.createElement('div');
+            dialog.className = 'confirm-dialog';
+            dialog.innerHTML = `
+                <div class="confirm-dialog-content">
+                    <h3><i class="fas fa-exclamation-triangle"></i> ${title}</h3>
+                    <p>${message}</p>
+                    <div class="confirm-dialog-buttons">
+                        <button data-action="cancel">Cancel</button>
+                        <button data-action="confirm">Delete</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(dialog);
+
+            // Add fade-in effect
+            setTimeout(() => dialog.classList.add('active'), 10);
+
+            // Handle button clicks
+            dialog.addEventListener('click', (e) => {
+                if (e.target.matches('[data-action="confirm"]')) {
+                    resolve(true);
+                    dialog.classList.remove('active');
+                    setTimeout(() => dialog.remove(), 300);
+                } else if (e.target.matches('[data-action="cancel"]') || e.target === dialog) {
+                    resolve(false);
+                    dialog.classList.remove('active');
+                    setTimeout(() => dialog.remove(), 300);
+                }
+            });
+        });
+    }
+
     // Function to fetch and display sets
     async function fetchAndDisplaySets() {
         try {
@@ -20,7 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const setElement = document.createElement('div');
                     setElement.className = 'set-item';
                     setElement.innerHTML = `
-                        <h3><i class="fas fa-layer-group"></i> ${set.set_name}</h3>
+                        <div class="set-header">
+                            <h3><i class="fas fa-layer-group"></i> ${set.set_name}</h3>
+                            <button class="btn-delete" title="Delete Set">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                         <div class="set-details">
                             <p><i class="fas fa-fingerprint"></i> <strong>ID:</strong> ${set.id}</p>
                             <p><i class="fas fa-align-left"></i> <strong>Description:</strong> ${set.description || 'No description'}</p>
@@ -28,6 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p><i class="fas fa-list"></i> <strong>Items:</strong> ${Array.isArray(set.items) ? set.items.join(', ') : set.items}</p>
                         </div>
                     `;
+
+                    // Add delete event listener
+                    const deleteButton = setElement.querySelector('.btn-delete');
+                    deleteButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        deleteSet(set.id, set.set_name);
+                    });
+
                     setsContainer.appendChild(setElement);
                 });
             } else {

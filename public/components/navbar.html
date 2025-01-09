@@ -1,0 +1,60 @@
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <i class="fas fa-cube"></i>
+            <span>Optimization App</span>
+        </div>
+        <ul class="nav-links">
+            <li class="nav-item" id="nav-home">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li class="nav-item" id="nav-sets">
+                <a href="/sets" class="nav-link">
+                    <i class="fas fa-layer-group"></i> Sets
+                </a>
+            </li>
+            <li class="nav-item" id="nav-parameters">
+                <a href="/parameters" class="nav-link">
+                    <i class="fas fa-sliders-h"></i> Parameters
+                </a>
+            </li>
+            <li class="nav-item" id="nav-constraints">
+                <a href="/constraints" class="nav-link">
+                    <i class="fas fa-link"></i> Constraints
+                </a>
+            </li>
+            <li class="nav-item" id="nav-variables">
+                <a href="/variables" class="nav-link">
+                    <i class="fas fa-superscript"></i> Variables
+                </a>
+            </li>
+            <li class="nav-item" id="nav-objective">
+                <a href="/objective" class="nav-link">
+                    <i class="fas fa-bullseye"></i> Objective
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script>
+    // Set active nav item based on current page
+    document.addEventListener('DOMContentLoaded', () => {
+        const path = window.location.pathname;
+        const navItems = {
+            '/': 'nav-home',
+            '/sets': 'nav-sets',
+            '/parameters': 'nav-parameters',
+            '/constraints': 'nav-constraints',
+            '/variables': 'nav-variables',
+            '/objective': 'nav-objective'
+        };
+        
+        const activeNavId = navItems[path];
+        if (activeNavId) {
+            document.getElementById(activeNavId).classList.add('active');
+        }
+    });
+</script> 

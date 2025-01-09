@@ -1,0 +1,4 @@
+Use scripts from @routes folder @sets.js to implement frontend instead of scripts.js
+
+
+By using updateSet where @setsController.js, create a function edit the set. When user click the set container where @scripts.js  then opened modal with minimal UI and user-friendly UX.

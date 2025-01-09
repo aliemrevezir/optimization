@@ -23,7 +23,9 @@ app.use('/api/sets', setsRoutes);
 app.get('/sets', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/sets.html'));
 });
-
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
