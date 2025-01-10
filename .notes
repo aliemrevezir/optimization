@@ -13,3 +13,9 @@ id|name(string)|description(TEXT)|relations(TEXT[])|length(integer)|value(float)
 
 #CSS
 create css file for parameters page inspiring by @sets.css and import this css to html file
+
+
+brew services stop postgresql
+brew services start postgresql
+
+

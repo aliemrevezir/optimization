@@ -1,1 +1,3 @@
-parameters sayfasına id ekle.
+- Parameters sayfasına id ekle.
+- Overleaf ile LaTeX çevirme özelliği ekle.
+- Gurobi entegrasyonu yap.
