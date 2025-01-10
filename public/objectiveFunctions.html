@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objective Functions | Optimization Application</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/objectiveFunctions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation will be loaded here -->
+    <div id="nav-placeholder"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-function"></i> Objective Functions Management</h1>
+        </header>
+        
+        <!-- Create Objective Function Form -->
+        <div class="form-container">
+            <h2><i class="fas fa-plus-circle"></i> Create New Objective Function</h2>
+            <form id="createObjectiveFunctionForm">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-tag"></i> Function Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter function name" required>
+                </div>
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-align-left"></i> Description:</label>
+                    <textarea id="description" name="description" placeholder="Enter function description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="parameters_needed"><i class="fas fa-cube"></i> Required Parameters:</label>
+                    <input type="text" id="parameters_needed" name="parameters_needed" placeholder="Enter required parameters separated by commas" required>
+                    <small class="help-text">Example: param1, param2, param3</small>
+                </div>
+                <div class="form-group">
+                    <label for="decision_needed"><i class="fas fa-code-branch"></i> Required Decision Variables:</label>
+                    <input type="text" id="decision_needed" name="decision_needed" placeholder="Enter required decision variables separated by commas" required>
+                    <small class="help-text">Example: decision1, decision2, decision3</small>
+                </div>
+                <div class="form-group">
+                    <label for="format"><i class="fas fa-code"></i> Function Format:</label>
+                    <textarea id="format" name="format" placeholder="Enter function format" required></textarea>
+                    <small class="help-text">Enter the mathematical format of the objective function</small>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Create Function
+                </button>
+            </form>
+        </div>
+
+        <!-- Objective Functions List -->
+        <div class="objective-functions-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list"></i> Existing Objective Functions</h2>
+                <button id="fetchObjectiveFunctions" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Fetch Functions
+                </button>
+            </div>
+            <div id="objectiveFunctionsContainer" class="objective-functions-container"></div>
+        </div>
+    </div>
+
+    <script src="/js/objectiveFunctions.js"></script>
+    <script>
+        // Load navigation
+        fetch('/components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+    </script>
+</body>
+</html> 

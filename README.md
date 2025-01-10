@@ -9,8 +9,9 @@
 6. [Frontend Architecture](#frontend-architecture)
 7. [Development Guidelines](#development-guidelines)
 8. [Error Handling](#error-handling)
-9. [Styling Guide](#styling-guide)
-10. [Testing](#testing)
+9. [Logging System](#logging-system)
+10. [Styling Guide](#styling-guide)
+11. [Testing](#testing)
 
 ## Project Overview
 A web-based optimization application that manages sets, parameters, constraints, and decision variables. The application follows a clean architecture with separate frontend and backend components, using PostgreSQL for data persistence.
@@ -271,6 +272,34 @@ Error Response:
    - Responsive design
    - Cross-browser compatibility
 
+4. **API Testing System**
+   - Automated endpoint testing with test data
+   - Complete CRUD operation verification
+   - Safe test data handling with cleanup
+   - Real-time test results logging
+
+   Test Data Structure:
+   ```javascript
+   {
+       '/api/sets': {
+           create: { set_name: 'Test Set', items: ['item1', 'item2'] },
+           update: { set_name: 'Updated Set', items: ['item1', 'item2', 'item3'] }
+       },
+       '/api/parameters': {
+           create: { name: 'Test Parameter', value: 100 },
+           update: { name: 'Updated Parameter', value: 200 }
+       },
+       // ... other endpoints
+   }
+   ```
+
+   Testing Flow:
+   1. Create test item with unique identifier
+   2. Verify GET operation
+   3. Test PUT with updated data
+   4. Confirm DELETE operation
+   5. Automatic cleanup of test data
+
 ## Security Practices
 1. Input validation
 2. Parameterized queries
@@ -294,6 +323,111 @@ Error Response:
 5. Logging
 6. Backup strategy 
 
+## Logging System
 
+### Interactive Message Logger
+The application includes an interactive message logging system that provides real-time monitoring of system events, errors, and API status.
+
+#### Features
+1. **Message Types**:
+   - ERROR (Red): System errors and failures
+   - SUCCESS (Green): Successful operations
+   - INFO (Cyan): General system information
+   - WARNING (Yellow): Important notices
+
+2. **Real-time Monitoring**:
+   - Database connection status
+   - Server initialization
+   - API endpoint health
+   - Route access attempts
+
+3. **Interactive Navigation**:
+   ```bash
+   npm run errors    # Start the interactive logger
+   ```
+   - `N`: Next message
+   - `P`: Previous message
+   - `F`: Cycle through filters (ALL → ERROR → SUCCESS → INFO)
+   - `R`: Test random route access
+   - `A`: Check all API endpoints
+   - `W`: Run complete API workflow tests
+   - `D`: Check database state
+   - `Q`: Quit
+
+4. **API Testing Commands**:
+   - `A`: Quick endpoint check
+     - Tests all endpoints
+     - Uses test data
+     - Verifies basic functionality
+   - `W`: Complete workflow test
+     - Creates test items
+     - Updates test data
+     - Verifies changes
+     - Cleans up after testing
+   - `D`: Database state check
+     - Shows current records
+     - Verifies test data cleanup
+     - Monitors database changes
+
+5. **Test Data Management**:
+   - Unique identifiers with timestamps
+   - Automatic cleanup after testing
+   - Safe separation from production data
+   - Comprehensive error logging
+
+6. **Test Output Format**:
+   ```bash
+   Created test item with ID: 123
+   API /api/endpoint [GET] - Status: 200 ✓
+   API /api/endpoint [POST] - Status: 201 ✓
+   API /api/endpoint/123 [PUT] - Status: 200 ✓
+   API /api/endpoint/123 [DELETE] - Status: 200 ✓
+   ```
+
+### Development Tools
+
+1. **Browser Auto-opener**:
+   ```bash
+   npm run dev    # Starts server and opens browser
+   ```
+   - Automatically opens default browser
+   - Platform-independent (Windows, macOS, Linux)
+   - Configurable delay (default: 2s)
+
+2. **Error Tracking**:
+   - Real-time error capture
+   - Stack trace preservation
+   - Error categorization
+   - Location tracking
+
+3. **Database Monitoring**:
+   - Connection status
+   - Query execution
+   - Error reporting
+   - Performance metrics
+
+### Usage Examples
+
+1. **Start Development Server with Logging**:
+   ```bash
+   npm run dev
+   ```
+
+2. **Monitor System Messages**:
+   ```bash
+   npm run errors
+   ```
+
+3. **Check API Health**:
+   ```bash
+   # In the error logger interface
+   Press 'A' to check all endpoints
+   ```
+
+4. **Test Random Routes**:
+   ```bash
+   # In the error logger interface
+   Press 'R' to test random route access
+   ```
 
 All of the above is done by [Cursor](https://www.cursor.sh).

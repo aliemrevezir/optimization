@@ -8,6 +8,7 @@ const setsRoutes = require('./routes/sets');
 const parametersRoutes = require('./routes/parameters');
 const constraintRoutes = require('./routes/constraints');
 const decisionVariablesRoutes = require('./routes/decisionVariables');
+const objectiveFunctionsRoutes = require('./routes/objectiveFunctions');
 
 // Load environment variables
 dotenv.config();
@@ -32,6 +33,7 @@ app.use('/api/sets', setsRoutes);
 app.use('/api/parameters', parametersRoutes);
 app.use('/api/constraints', constraintRoutes);
 app.use('/api/decision_variables', decisionVariablesRoutes);
+app.use('/api/objective_functions', objectiveFunctionsRoutes);
 
 // Frontend routes
 app.get('/decision_variables', (req, res) => {
@@ -52,6 +54,10 @@ app.get('/', (req, res) => {
 
 app.get('/constraints', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/constraints.html'));
+});
+
+app.get('/objective_functions', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/objectiveFunctions.html'));
 });
 
 // Test error logging

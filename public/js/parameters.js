@@ -196,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <div class="parameter-details">
+                            <p><i class="fas fa-key"></i> <strong>ID:</strong> ${parameter.id}</p>
                             <p><i class="fas fa-hashtag"></i> <strong>Value:</strong> ${parameter.value || 'None'}</p>
                             <p><i class="fas fa-project-diagram"></i> <strong>Relations:</strong> ${parameter.relations ? parameter.relations.join(', ') : 'None'}</p>
                             <p><i class="fas fa-align-left"></i> <strong>Description:</strong> ${parameter.description || 'No description'}</p>

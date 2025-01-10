@@ -1,3 +1,5 @@
 - Parameters sayfasına id ekle.
 - Overleaf ile LaTeX çevirme özelliği ekle.
 - Gurobi entegrasyonu yap.
+
+- Mobil responsive halinde navbar'ı ve existing sets container'ındaki düzenle ve sil butonlarını düzenle.

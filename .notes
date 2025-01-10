@@ -19,3 +19,4 @@ brew services stop postgresql
 brew services start postgresql
 
 
+her yeni composer açtığımda ilk görevi basit veriyorum.

@@ -10,3 +10,4 @@ yarn-error.log*
 .env.production.local 
 .cursorrules
 .gurobi
+.vscode
