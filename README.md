@@ -296,4 +296,4 @@ Error Response:
 
 
 
-All of the above is done by Cursor.
+All of the above is done by [Cursor](https://www.cursor.sh).
