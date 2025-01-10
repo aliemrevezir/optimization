@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parameters Management | Optimization Application</title>
+    <title>Decision Variables Management | Optimization Application</title>
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/parameters.css">
+    <link rel="stylesheet" href="/css/decision_variables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
 </head>
 <body>
     <!-- Navigation will be loaded here -->
@@ -16,21 +15,18 @@
 
     <div class="container">
         <header class="header">
-            <h1><i class="fas fa-sliders-h"></i> Parameters Management</h1>
+            <h1><i class="fas fa-cube"></i> Decision Variables Management</h1>
         </header>
         
-        <!-- Create Parameter Form -->
+        <!-- Create Decision Variable Form -->
         <div class="form-container">
-            <h2><i class="fas fa-plus-circle"></i> Create New Parameter</h2>
-            <form id="createParameterForm">
+            <h2><i class="fas fa-plus-circle"></i> Create New Decision Variable</h2>
+            <form id="createDecisionVariableForm">
                 <div class="form-group">
-                    <label for="parameter_name"><i class="fas fa-tag"></i> Parameter Name:</label>
-                    <input type="text" id="parameter_name" name="name" placeholder="Enter parameter name" required>
+                    <label for="variable_name"><i class="fas fa-tag"></i> Variable Name:</label>
+                    <input type="text" id="variable_name" name="name" placeholder="Enter variable name" required>
                 </div>
-                <div class="form-group">
-                    <label for="value"><i class="fas fa-hashtag"></i> Value:</label>
-                    <input type="number" id="value" name="value" placeholder="Enter parameter value" required>
-                </div>
+                
                 <div class="form-group">
                     <label for="relations"><i class="fas fa-project-diagram"></i> Relations:</label>
                     <input type="text" id="relations" name="relations" placeholder="Enter relation IDs (comma-separated)" required>
@@ -38,27 +34,27 @@
                 </div>
                 <div class="form-group">
                     <label for="description"><i class="fas fa-align-left"></i> Description:</label>
-                    <textarea id="description" name="description" placeholder="Enter parameter description"></textarea>
+                    <textarea id="description" name="description" placeholder="Enter variable description"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Create Parameter
+                    <i class="fas fa-save"></i> Create Decision Variable
                 </button>
             </form>
         </div>
 
-        <!-- Parameters List -->
-        <div class="parameters-section">
+        <!-- Decision Variables List -->
+        <div class="decision-variables-section">
             <div class="section-header">
-                <h2><i class="fas fa-database"></i> Existing Parameters</h2>
-                <button id="fetchParameters" class="btn btn-secondary">
-                    <i class="fas fa-sync-alt"></i> Fetch Parameters
+                <h2><i class="fas fa-database"></i> Existing Decision Variables</h2>
+                <button id="fetchDecisionVariables" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Fetch Decision Variables
                 </button>
             </div>
-            <div id="parametersContainer" class="parameters-container"></div>
+            <div id="decisionVariablesContainer" class="decision-variables-container"></div>
         </div>
     </div>
 
-    <script src="/js/parameters.js"></script>
+    <script src="/js/decision_variables.js"></script>
     <script>
         // Load navigation
         fetch('/components/navbar.html')

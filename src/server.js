@@ -5,6 +5,7 @@ const path = require('path');
 const setsRoutes = require('./routes/sets');
 const parametersRoutes = require('./routes/parameters');
 const constraintRoutes = require('./routes/constraints');
+const decisionVariablesRoutes = require('./routes/decisionVariables');
 // Load environment variables
 dotenv.config();
 
@@ -21,7 +22,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api/sets', setsRoutes);
 app.use('/api/parameters', parametersRoutes);
 app.use('/api/constraints', constraintRoutes);
+app.use('/api/decision_variables', decisionVariablesRoutes);
 // Serve frontend
+app.get('/decision_variables', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/decision_variables.html'));
+});
 app.get('/parameters', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/parameters.html'));
 });

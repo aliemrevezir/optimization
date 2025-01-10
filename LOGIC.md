@@ -1,31 +1,6 @@
 # Sets Management Application Logic
 
-## Project Structure
-```
-project_root/
-├── config/                     # Configuration files
-│   └── database.js            # PostgreSQL configuration
-├── public/                    # Static files
-│   ├── components/            # Reusable UI components
-│   │   └── navbar.html       # Navigation bar component
-│   ├── css/                  # Stylesheets
-│   │   ├── common.css        # Shared styles
-│   │   ├── navbar.css        # Navigation styles
-│   │   ├── homePage.css      # Homepage specific styles
-│   │   └── sets.css          # Sets page specific styles
-│   ├── js/
-│   │   └── scripts.js        # Frontend JavaScript
-│   ├── index.html            # Homepage
-│   └── sets.html             # Sets management page
-├── src/                      # Source code
-│   ├── controllers/          # Business logic
-│   │   └── setsController.js # Sets CRUD operations
-│   ├── routes/               # API routes
-│   │   └── sets.js          # Sets endpoints
-│   └── server.js            # Main application file
-└── tests/                    # Test files
-    └── sets.test.js         # Sets tests
-```
+# Project Structure
 
 ## Implementation Pattern for Database Tables
 
@@ -515,3 +490,358 @@ document.addEventListener('DOMContentLoaded', () => {
    - Use parameterized queries
    - Handle errors gracefully
    - Don't expose sensitive information
+```
+
+# Implementation Patterns Documentation
+
+## Table Structure Pattern
+
+Each table in the application follows a consistent pattern with these components:
+
+### 1. Frontend Structure
+```
+public/
+├── ${table_name}.html         # Main HTML file
+├── css/
+│   └── ${table_name}.css     # Table-specific styles
+└── js/
+    └── ${table_name}.js      # Table-specific JavaScript
+```
+
+### 2. Backend Structure
+```
+src/
+├── controllers/
+│   └── ${table_name}Controller.js
+└── routes/
+    └── ${table_name}.js
+```
+
+## Implementation Pattern
+
+### 1. HTML Template (`public/${table_name}.html`)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${TableName} Management | Optimization Application</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/${table_name}.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div id="nav-placeholder"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-[icon]"></i> ${TableName} Management</h1>
+        </header>
+        
+        <!-- Create Form -->
+        <div class="form-container">
+            <h2><i class="fas fa-plus-circle"></i> Create New ${TableName}</h2>
+            <form id="create${TableName}Form">
+                <!-- Form fields -->
+            </form>
+        </div>
+
+        <!-- Items List -->
+        <div class="${table_name}-section">
+            <div class="section-header">
+                <h2><i class="fas fa-database"></i> Existing ${TableName}s</h2>
+                <button id="fetch${TableName}s" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Fetch ${TableName}s
+                </button>
+            </div>
+            <div id="${table_name}Container" class="${table_name}-container"></div>
+        </div>
+    </div>
+
+    <script src="/js/${table_name}.js"></script>
+    <script>
+        // Load navigation
+        fetch('/components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+    </script>
+</body>
+</html>
+```
+
+### 2. CSS Pattern (`public/css/${table_name}.css`)
+```css
+/* Form Container */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Input Styles */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Items Container */
+.${table_name}-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Item Card */
+.${table_name}-item {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+```
+
+### 3. JavaScript Pattern (`public/js/${table_name}.js`)
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const fetchButton = document.getElementById(`fetch${TableName}s`);
+    const container = document.getElementById(`${table_name}Container`);
+    const createForm = document.getElementById(`create${TableName}Form`);
+
+    // CRUD Functions
+    async function fetchAndDisplay${TableName}s() {
+        try {
+            const response = await fetch(`http://localhost:3000/api/${table_name}s`);
+            const result = await response.json();
+            // Display logic
+        } catch (error) {
+            showNotification(error.message, 'error');
+        }
+    }
+
+    // Create Form Handler
+    createForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // Create logic
+    });
+
+    // Edit Modal
+    function showEditModal(item) {
+        // Edit modal logic
+    }
+
+    // Delete Handler
+    async function deleteItem(id, name) {
+        // Delete logic
+    }
+
+    // Notifications
+    function showNotification(message, type = 'success') {
+        // Notification logic
+    }
+
+    // Initial fetch
+    fetchAndDisplay${TableName}s();
+});
+```
+
+### 4. Controller Pattern (`src/controllers/${table_name}Controller.js`)
+```javascript
+const pool = require('../../config/database');
+
+// Get all items
+const getAll${TableName}s = async (req, res) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM ${table_name}s ORDER BY created_at DESC'
+        );
+        res.json({
+            success: true,
+            data: result.rows
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: `Failed to fetch ${table_name}s`
+        });
+    }
+};
+
+// Get single item
+const get${TableName}ById = async (req, res) => {
+    // Get by ID logic
+};
+
+// Create item
+const create${TableName} = async (req, res) => {
+    // Create logic with validation
+};
+
+// Update item
+const update${TableName} = async (req, res) => {
+    // Update logic with validation
+};
+
+// Delete item
+const delete${TableName} = async (req, res) => {
+    // Delete logic
+};
+
+module.exports = {
+    getAll${TableName}s,
+    get${TableName}ById,
+    create${TableName},
+    update${TableName},
+    delete${TableName}
+};
+```
+
+### 5. Routes Pattern (`src/routes/${table_name}.js`)
+```javascript
+const express = require('express');
+const router = express.Router();
+const {
+    getAll${TableName}s,
+    get${TableName}ById,
+    create${TableName},
+    update${TableName},
+    delete${TableName}
+} = require('../controllers/${table_name}Controller');
+
+// Routes
+router.get('/', getAll${TableName}s);
+router.get('/:id', get${TableName}ById);
+router.post('/', create${TableName});
+router.put('/:id', update${TableName});
+router.delete('/:id', delete${TableName});
+
+module.exports = router;
+```
+
+## API Response Format
+
+### Success Response
+```json
+{
+    "success": true,
+    "data": [/* data objects */]
+}
+```
+
+### Error Response
+```json
+{
+    "success": false,
+    "error": "Error message"
+}
+```
+
+## UI/UX Patterns
+
+1. **Form Layout**:
+   - Clean, single-column layout
+   - Clear labels with icons
+   - Helpful placeholder text
+   - Validation feedback
+
+2. **List View**:
+   - Grid layout for items
+   - Card-based design
+   - Hover effects
+   - Action buttons (edit/delete)
+
+3. **Interactions**:
+   - Loading states
+   - Success/error notifications
+   - Confirmation dialogs
+   - Smooth animations
+
+4. **Responsive Design**:
+   - Mobile-friendly layouts
+   - Flexible grids
+   - Readable text at all sizes
+
+## Best Practices
+
+1. **Error Handling**:
+   - Consistent error messages
+   - User-friendly error display
+   - Proper error logging
+
+2. **Data Validation**:
+   - Frontend validation
+   - Backend validation
+   - Sanitize inputs
+
+3. **Code Organization**:
+   - Modular components
+   - Clear file structure
+   - Consistent naming
+
+4. **Security**:
+   - Input sanitization
+   - Proper error handling
+   - No sensitive data exposure
+
+## Example Tables
+
+1. **Sets**:
+   - Name, Items, Description
+   - Grid layout with item lists
+   - Edit/Delete functionality
+
+2. **Parameters**:
+   - Name, Value, Relations, Description
+   - Numeric value handling
+   - Relation management
+
+3. **Constraints**:
+   - Name, Sign, RHS Value, Parameters, Decision Variables
+   - Format string display
+   - Mathematical notation
+
