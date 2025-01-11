@@ -1,18 +1,17 @@
 npm run dev
-
-
+#HTML
+Inspiring from @sets.js @sets.css @sets.html @setsController.js @scripts.js , implement whole things for decision_variables coding step by step. Firstly, you should create a html file for parameters. implement ui elements as same as @sets.html 
+Constraint table was existed with:
+id|name(string)|description(TEXT)|relations(TEXT[])|length(integer)|value(float)|
+#CSS
+create css file for parameters page inspiring by @sets.css and import this css to html file
 #JAVASCRIPT
 Fill the @constraintsController.js and routes file @constraints.js then create frontend javascript file to @js please coding inspire from @sets.js @setsController.js 
 Constraint table was existed with:
 id	"name"(string)	parameters_needed(TEXT[])	decision_needed(TEXT[])	description(TEXT)	sign(ARRAY['le', 'eq', 'ge', 'lt', 'gt'])	format(TEXT[])	rhs(float)
 
-#HTML
-Inspiring from @sets.js @sets.css @sets.html @setsController.js @scripts.js , implement whole things for decision_variables coding step by step. Firstly, you should create a html file for parameters. implement ui elements as same as @sets.html 
-Constraint table was existed with:
-id|name(string)|description(TEXT)|relations(TEXT[])|length(integer)|value(float)|
 
-#CSS
-create css file for parameters page inspiring by @sets.css and import this css to html file
+
 
 
 brew services stop postgresql

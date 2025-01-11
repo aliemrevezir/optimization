@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/parameters.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <!-- Add theme manager script -->
+    <script src="/js/themeManager.js"></script>
 </head>
 <body>
     <!-- Navigation will be loaded here -->
@@ -60,11 +61,30 @@
 
     <script src="/js/parameters.js"></script>
     <script>
-        // Load navigation
+        // Load navigation and initialize theme
         fetch('/components/navbar.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('nav-placeholder').innerHTML = data;
+                
+                // Set active nav item
+                const path = window.location.pathname;
+                const navItems = {
+                    '/': 'nav-home',
+                    '/sets': 'nav-sets',
+                    '/parameters': 'nav-parameters',
+                    '/constraints': 'nav-constraints',
+                    '/decision_variables': 'nav-variables',
+                    '/objective_functions': 'nav-objective'
+                };
+                
+                const activeNavId = navItems[path];
+                if (activeNavId) {
+                    document.getElementById(activeNavId).classList.add('active');
+                }
+
+                // Initialize theme
+                themeManager.init();
             });
     </script>
 </body>

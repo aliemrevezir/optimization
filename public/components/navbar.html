@@ -1,3 +1,7 @@
+<!-- Add theme stylesheet -->
+<link rel="stylesheet" href="/css/themes.css">
+
+<!-- Navigation content -->
 <nav class="navbar">
     <div class="nav-container">
         <div class="nav-brand">
@@ -32,29 +36,14 @@
             </li>
             <li class="nav-item" id="nav-objective">
                 <a href="/objective_functions" class="nav-link">
-                    <i class="fas fa-bullseye"></i> Objective
+                    <i class="fas fa-bullseye"></i> Objective Functions
                 </a>
+            </li>
+            <li class="nav-item">
+                <button onclick="themeManager.toggleTheme()" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-sun"></i>
+                </button>
             </li>
         </ul>
     </div>
-</nav>
-
-<script>
-    // Set active nav item based on current page
-    document.addEventListener('DOMContentLoaded', () => {
-        const path = window.location.pathname;
-        const navItems = {
-            '/': 'nav-home',
-            '/sets': 'nav-sets',
-            '/parameters': 'nav-parameters',
-            '/constraints': 'nav-constraints',
-            '/variables': 'nav-variables',
-            '/objective_functions': 'nav-objective'
-        };
-        
-        const activeNavId = navItems[path];
-        if (activeNavId) {
-            document.getElementById(activeNavId).classList.add('active');
-        }
-    });
-</script> 
+</nav> 

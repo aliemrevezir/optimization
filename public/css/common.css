@@ -8,15 +8,18 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     padding-top: 60px; /* Space for fixed navbar */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
 }
 
 /* Buttons */
@@ -31,7 +34,7 @@ body {
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
 }
 
 .btn i {
@@ -39,35 +42,38 @@ body {
 }
 
 .btn-primary {
-    background-color: #3498db;
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    background-color: var(--accent-hover);
 }
 
 .btn-secondary {
-    background-color: #2ecc71;
-    color: white;
+    background-color: var(--success-color);
+    color: var(--bg-primary);
 }
 
 .btn-secondary:hover {
-    background-color: #27ae60;
+    background-color: var(--success-color);
+    opacity: 0.9;
 }
 
 .btn:disabled {
-    background-color: #95a5a6;
+    background-color: var(--text-muted);
     cursor: not-allowed;
 }
 
 /* Headers */
 h1, h2, h3, h4, h5, h6 {
-    color: #2c3e50;
+    color: var(--text-primary);
     margin-bottom: 0.5em;
+    transition: color 0.3s ease;
 }
 
 /* Icons */
 i {
     margin-right: 8px;
+    transition: color 0.3s ease;
 } 
